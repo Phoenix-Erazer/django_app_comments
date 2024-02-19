@@ -14,12 +14,19 @@ def add_comment(request):
             text = form.cleaned_data["text"]
             parent_comment = form.cleaned_data["parent_comment"]
             user = request.user  # Use an authenticated user
-            comment = Comment(user=user, text=text, parent_comment=parent_comment)
+            comment = Comment(
+                user=user,
+                text=text,
+                parent_comment=parent_comment
+            )
             comment.save()
             return redirect("comments:home")
     else:
         # Use the registered user data to fill out the form
-        initial_data = {"username": request.user.username, "email": request.user.email}
+        initial_data = {
+            "username": request.user.username,
+            "email": request.user.email
+        }
         form = CommentForm(initial=initial_data)
     return render(request, "add_comment.html", {"form": form})
 
