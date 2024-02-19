@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+    <table>
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>E-mail</th>
+                <th>Date Added</th>
+                <th>Text</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment in page_obj %}
+            <tr>
+                <td>{{ comment.user.username }}</td>
+                <td>{{ comment.user.email }}</td>
+                <td>{{ comment.created_at }}</td>
+                <td>{{ comment.text }}</td>
+                <td>{{ comment.parent_comment }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</html>
