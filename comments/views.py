@@ -28,12 +28,12 @@ def add_comment(request):
             "email": request.user.email
         }
         form = CommentForm(initial=initial_data)
-    return render(request, "add_comment.html", {"form": form})
+    return render(request, "includes/add_comment.html", {"form": form})
 
 
 def comment_list(request: HttpRequest) -> HttpRequest:
     comments = Comment.objects.all()
-    return render(request, "comment_list.html", {"comments": comments})
+    return render(request, "includes/comment_list.html", {"comments": comments})
 
 
 def home(request):
@@ -56,4 +56,4 @@ def home(request):
         }
     )
 
-    return render(request, "home.html", {"page_obj": page_obj, "form": form})
+    return render(request, "comments/home.html", {"page_obj": page_obj, "form": form})
