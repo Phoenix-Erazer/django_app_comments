@@ -18,7 +18,7 @@ class CommentForm(forms.Form):
     captcha = CaptchaField()
     text = forms.CharField(label="Text", widget=forms.Textarea, required=True)
     parent_comment = forms.ModelChoiceField(
-        queryset=Comment.objects.all(),
+        queryset=Comment.objects.select_related('user').order_by("-created_at"),
         required=False,
         empty_label="Select parent comment (optional)",
     )
