@@ -1,7 +1,10 @@
 from django.core.paginator import Paginator
-from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.views import generic
+from django.db.models import Prefetch
+
+
 from .forms import CommentForm
 from .models import Comment
 
@@ -31,24 +34,20 @@ def add_comment(request):
     return render(request, "includes/add_comment.html", {"form": form})
 
 
-def comment_list(request: HttpRequest) -> HttpRequest:
-    comments = Comment.objects.all()
-    return render(request, "includes/comment_list.html", {"comments": comments})
+class CommentListView(generic.ListView):
+    model = Comment
+    template_name = "includes/comment_list.html"
+    context_object_name = "comment_list"
+    paginate_by = 25
+
+    queryset = Comment.objects.select_related('user').order_by("-created_at")
 
 
 def home(request):
-    # Get all comments sorted by date added in descending order (LIFO)
-    comments = Comment.objects.order_by("-created_at")
+    comments = Comment.objects.select_related('user').order_by("-created_at")
 
-    # Разбиваем комментарии на страницы по 25 сообщений на каждой
-    page_number = request.GET.get("page", 1)
-    paginator = Paginator(comments, 25)
-    page_obj = paginator.get_page(page_number)
-
-    # Получаем текущего аутентифицированного пользователя
     current_user = request.user if request.user.is_authenticated else None
 
-    # Передаем текущего пользователя в форму
     form = CommentForm(
         initial={
             "username": current_user.username if current_user else "",
@@ -56,4 +55,8 @@ def home(request):
         }
     )
 
-    return render(request, "comments/home.html", {"page_obj": page_obj, "form": form})
+    return render(
+        request, "comments/home.html",
+        {"comments": comments,
+         "form": form}
+    )
