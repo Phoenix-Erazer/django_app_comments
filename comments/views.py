@@ -1,20 +1,27 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
+from django.urls import reverse_lazy
 from django.views import generic
 
 from .models import Comment
 from .forms import CommentForm
 
 
-def add_comment(request):
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("comments:home")
-    else:
-        form = CommentForm()
-    return render(request, "includes/add_comment.html", {"form": form})
+class CommentCreateView(generic.CreateView):
+    form_class = CommentForm
+    success_url = reverse_lazy("comments:home")
+    template_name = "includes/add_comment.html"
+
+
+# def add_comment(request):
+#     if request.method == "POST":
+#         form = CommentForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect("comments:home")
+#     else:
+#         form = CommentForm()
+#     return render(request, "includes/add_comment.html", {"form": form})
 
 
 class CommentListView(generic.ListView):
