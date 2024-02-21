@@ -23,14 +23,12 @@ class CommentListView(generic.ListView):
     context_object_name = "comment_list"
     paginate_by = 25
 
-    queryset = Comment.objects.select_related("user").order_by("-created_at")
+    queryset = Comment.objects.select_related("parent_comment")\
+        .order_by("-created_at")
 
 
 def home(request):
     comments = Comment.objects.filter(parent_comment__isnull=True).order_by(
         "-created_at"
     )
-    paginator = Paginator(comments, 25)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    return render(request, "comments/home.html", {"page_obj": page_obj})
+    return render(request, "comments/home.html", {"comment_list": comments})
