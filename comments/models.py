@@ -23,11 +23,12 @@ class Comment(models.Model):
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     parent_comment = models.ForeignKey(
-        "self", on_delete=models.CASCADE, null=True, blank=True
+        "self", on_delete=models.CASCADE, null=True, blank=True,
+        related_name="comments"
     )
 
     def __str__(self):
         return (
             f"{self.user_name}({self.created_at}): "
-            f"{self.text} on {self.parent_comment}"
+            f"{self.text}"
         )
