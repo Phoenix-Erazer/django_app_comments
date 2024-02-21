@@ -1,0 +1,11 @@
+<!-- comments/comment_subtree.html -->
+<ul class="comments-list">
+  {% for sub_comment in comments %}
+    <li>
+      <strong>{{ sub_comment.user_name }}</strong> ({{ sub_comment.created_at|date:"F d, Y H:i" }}): {{ sub_comment.text }}
+      {% if sub_comment.comments.all %}
+        {% include "comments/comment_subtree.html" with comments=sub_comment.comments.all %}
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
