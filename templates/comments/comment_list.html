@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+  <h1>Comments:</h1>
+  <ul class="comments-list">
+    {% for comment in comment_list %}
+      <li>
+        <strong>{{ comment.user_name }}</strong> ({{ comment.created_at }}): {{ comment.text }}
+        {% if comment.comments.all %}
+          {% include "comments/comment_subtree.html" with comments=comment.comments.all %}
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'comments:add_comment' %}" class="btn btn-primary">Add Comment</a>
+
+</body>
+{% endblock %}
+
