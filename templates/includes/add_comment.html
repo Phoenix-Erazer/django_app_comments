@@ -1,9 +1,12 @@
-
-  <body>
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+<body>
       <h1>Add Comment</h1>
       <form method="post">
           {% csrf_token %}
-          {{ form.as_p }}
-          <button type="submit">Submit</button>
+          {{ form|crispy }}
+          <button class="btn-primary" type="submit">Submit</button>
       </form>
   </body>
+{% endblock %}
