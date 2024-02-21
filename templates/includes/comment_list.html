@@ -1,24 +1,25 @@
-<h1>Comments</h1>
-  <table>
-    <thead>
-        <tr>
-            <th>User Name</th>
-            <th>E-mail</th>
-            <th>Date Added</th>
-            <th>Text</th>
-            <th>Comments</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for comment in comment_list %}
+<body>
+  <h1>Comments</h1>
+    <table>
+      <thead>
           <tr>
-              <td>{{ comment.user.username }}</td>
-              <td>{{ comment.user.email }}</td>
-              <td>{{ comment.created_at }}</td>
-              <td>{{ comment.text }}</td>
-              <td>{{ comment.parent_comment }}</td>
+              <th>User Name</th>
+              <th>E-mail</th>
+              <th>Date Added</th>
+              <th>Text</th>
+              <th>Comments</th>
           </tr>
-        {% endfor %}
-    </tbody>
-    </table>
-{% include "includes/pagination.html" %}
+      </thead>
+      <tbody>
+          {% for comment in comment_list %}
+            <tr>
+                <td>{{ comment.user_name }}</td>
+                <td>{{ comment.email }}</td>
+                <td>{{ comment.created_at }}</td>
+                <td>{{ comment.text }}</td>
+                <td>{{ comment.parent_comment }}</td>
+            </tr>
+          {% endfor %}
+      </tbody>
+      </table>
+</body>
