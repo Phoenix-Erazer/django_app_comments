@@ -13,7 +13,9 @@ class Command(BaseCommand):
                 db_conn = connections["default"]
             except OperationalError:
                 self.stdout.write(
-                    self.style.WARNING("Database unavailable, retrying in 1 second...")
+                    self.style.WARNING(
+                        "Database unavailable, retrying in 1 second..."
+                    )
                 )
                 time.sleep(1)
 
