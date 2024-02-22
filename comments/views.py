@@ -17,5 +17,7 @@ class CommentListView(generic.ListView):
     context_object_name = "comment_list"
     paginate_by = 25
 
-    queryset = Comment.objects.filter(parent_comment__isnull=True).prefetch_related(
+    queryset = Comment.objects.filter(
+        parent_comment__isnull=True
+    ).prefetch_related(
         "__".join(["comments"] * 10)).order_by("created_at")
