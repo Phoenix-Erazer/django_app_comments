@@ -91,7 +91,7 @@ DATABASES = {
 
 ```bash
 $ docker build -t django_app_comments .
-$ docker-compose up --build 
+$ docker-compose up
 ```
 
 Visit `http://127.0.0.1:8080/comments/comment-list/` in your browser. The app should be up & running.
