@@ -69,25 +69,7 @@ $ cd django_app_comments
 
 <br />
 
-> **Step 2** - 
-To use local PostgreSQL. 
-Change DATABASES in settings.py (
-not necessarily an action❗❗❗)
-```bash
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("POSTGRES_DB"),
-        "USER": config("POSTGRES_USER"),
-        "PASSWORD": config("POSTGRES_PASSWORD"),
-        "HOST": config("POSTGRES_HOST"),
-    }
-}
-```
-
-<br />
-
-> **Step 3** - Start the APP in `Docker`
+> **Step 2** - Start the APP in `Docker`
 
 ```bash
 $ docker build -t django_app_comments .
