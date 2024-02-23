@@ -55,7 +55,7 @@ $ python manage.py createsuperuser
 $ python manage.py runserver
 ```
 
-At this point, the app runs at `http://127.0.0.1:8080/comments/comment-list/`.
+At this point, the app runs at `http://127.0.0.1:8000/comments/comment-list/`.
 
 
 ## ✨ Start the app in Docker
